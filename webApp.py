@@ -1,18 +1,22 @@
 import requests
-import pickle
 import streamlit as st
 import pandas as pd
+import json
 
 st.header('Viviana - Movie Recommendation System')
 
-movies = pickle.load(open('movies.pkl', 'rb'))
+movies = pd.read_pickle('movies.pkl')
 #userData = pickle.load(open('userData.pkl','rb'))
-userTable = pickle.load(open('userTable.pkl','rb'))
+userTable = pd.read_pickle('userTable.pkl')
 #tagData = pickle.load(open('tagData.pkl','rb'))
-tagTable = pickle.load(open('tagTable.pkl','rb'))
+tagTable = pd.read_pickle('tagTable.pkl')
 
 def fetch_poster(movie_id):
-    url = "https://api.themoviedb.org/3/movie/{}?api_key=8265bd1679663a7ea12ac168da84d2e8&language=en-US".format(movie_id)
+    with open('config.json') as config_file:
+        config = json.load(config_file)
+
+    api_key = config.get('api_key')
+    url = f"https://api.themoviedb.org/3/movie/{movie_id}?api_key={api_key}&language=en-US"
     data = requests.get(url)
     data = data.json()
     try:
