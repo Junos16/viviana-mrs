@@ -3,7 +3,8 @@ import streamlit as st
 import pandas as pd
 import json
 
-st.header('Viviana - Movie Recommendation System')
+st.title('Viviana - Movie Recommendation System')
+st.markdown('### By [Hriddhit Datta](https://www.linkedin.com/in/hriddhit-datta-035608223/)')
 
 movies = pd.read_pickle('movies.pkl')
 #userData = pickle.load(open('userData.pkl','rb'))
